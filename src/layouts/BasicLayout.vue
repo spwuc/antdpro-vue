@@ -28,7 +28,10 @@
       :collapsible="true"
     ></side-menu>
 
-    <a-layout :class="[layoutMode, `content-width-${contentWidth}`]" :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }">
+    <a-layout
+      :class="[layoutMode, `content-width-${contentWidth}`]"
+      :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }"
+    >
       <!-- layout header -->
       <global-header
         :mode="layoutMode"
@@ -40,7 +43,9 @@
       />
 
       <!-- layout content -->
-      <a-layout-content :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }">
+      <a-layout-content
+        :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }"
+      >
         <multi-tab v-if="multiTab"></multi-tab>
         <transition name="page-transition">
           <route-view />
@@ -56,7 +61,6 @@
       <setting-drawer v-if="!production"></setting-drawer>
     </a-layout>
   </a-layout>
-
 </template>
 
 <script>
@@ -82,7 +86,7 @@ export default {
     GlobalFooter,
     SettingDrawer
   },
-  data () {
+  data() {
     return {
       production: config.production,
       collapsed: false,
@@ -94,7 +98,7 @@ export default {
       // 动态主路由
       mainMenu: state => state.permission.addRouters
     }),
-    contentPaddingLeft () {
+    contentPaddingLeft() {
       if (!this.fixSidebar || this.isMobile()) {
         return '0'
       }
@@ -105,16 +109,17 @@ export default {
     }
   },
   watch: {
-    sidebarOpened (val) {
+    sidebarOpened(val) {
       this.collapsed = !val
     }
   },
-  created () {
+  created() {
+    window.router = this.$router
     const routes = convertRoutes(this.mainMenu.find(item => item.path === '/'))
     this.menus = (routes && routes.children) || []
     this.collapsed = !this.sidebarOpened
   },
-  mounted () {
+  mounted() {
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
@@ -127,23 +132,22 @@ export default {
   },
   methods: {
     ...mapActions(['setSidebar']),
-    toggle () {
+    toggle() {
       this.collapsed = !this.collapsed
       this.setSidebar(!this.collapsed)
       triggerWindowResizeEvent()
     },
-    paddingCalc () {
+    paddingCalc() {
       let left = ''
       if (this.sidebarOpened) {
         left = this.isDesktop() ? '256px' : '80px'
       } else {
-        left = (this.isMobile() && '0') || ((this.fixSidebar && '80px') || '0')
+        left = (this.isMobile() && '0') || (this.fixSidebar && '80px') || '0'
       }
       return left
     },
-    menuSelect () {
-    },
-    drawerClose () {
+    menuSelect() {},
+    drawerClose() {
       this.collapsed = false
     }
   }
