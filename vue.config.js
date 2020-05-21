@@ -78,10 +78,9 @@ const vueConfig = {
         modifyVars: {
           // TODO  主题色替换
           // less vars，customize ant design theme
-
-          // 'primary-color': '#F5222D',
+          // 'primary-color': '#0aa679',
           // 'link-color': '#F5222D',
-          'border-radius-base': '2px'
+          // 'border-radius-base': '2px'
         },
         // DO NOT REMOVE THIS LINE
         javascriptEnabled: true
