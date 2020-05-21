@@ -1,6 +1,6 @@
 {
-  "name": "vue-antd-pro",
-  "version": "2.1.0",
+  "name": "antdpro-vue",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "npm run serve",
