@@ -481,11 +481,11 @@ const userNav = options => {
           meta: { title: '分析页' }
         },
         // 外部链接
-        {
-          path: 'https://www.baidu.com/',
-          name: 'Monitor',
-          meta: { title: '监控页（外部）', target: '_blank' }
-        },
+        // {
+        //   path: 'https://www.baidu.com/',
+        //   name: 'Monitor',
+        //   meta: { title: '监控页（外部）', target: '_blank' }
+        // },
         {
           path: 'workplace',
           name: 'Workplace',
