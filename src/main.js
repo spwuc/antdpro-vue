@@ -18,7 +18,13 @@ import './permission' // permission control
 import './utils/filter' // global filter
 import './components/global.less'
 import { Dialog } from '@/components'
+import '@/styles/public.less'
 
+// import BaiduMap from 'vue-baidu-map'
+
+// Vue.use(BaiduMap, {
+//   ak: 'O4dk4hc0x9F12i5wQanVd8VQ'
+// })
 Vue.config.productionTip = false
 
 // mount axios Vue.$http and this.$http

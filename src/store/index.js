@@ -20,13 +20,22 @@ export default new Vuex.Store({
     permission
   },
   state: {
-
+    loadding: false
   },
   mutations: {
-
+    showloadding(state, load) {
+      state.loadding = load
+    }
   },
   actions: {
-
+    setloadding(context, load) {
+      context.commit('showloadding', load)
+    }
   },
-  getters
+  getters: {
+    ...getters,
+    isloading: state => {
+      return state.loadding
+    }
+  }
 })

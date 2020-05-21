@@ -1,17 +1,9 @@
 import { axios } from '@/utils/request'
-
-const api = {
-  user: '/user',
-  role: '/role',
-  service: '/service',
-  permission: '/permission',
-  permissionNoPager: '/permission/no-pager',
-  orgTree: '/org/tree'
-}
+import api from './index'
 
 export default api
 
-export function getUserList (parameter) {
+export function getUserList(parameter) {
   return axios({
     url: api.user,
     method: 'get',
@@ -19,7 +11,7 @@ export function getUserList (parameter) {
   })
 }
 
-export function getRoleList (parameter) {
+export function getRoleList(parameter) {
   return axios({
     url: api.role,
     method: 'get',
@@ -27,7 +19,7 @@ export function getRoleList (parameter) {
   })
 }
 
-export function getServiceList (parameter) {
+export function getServiceList(parameter) {
   return axios({
     url: api.service,
     method: 'get',
@@ -35,7 +27,7 @@ export function getServiceList (parameter) {
   })
 }
 
-export function getPermissions (parameter) {
+export function getPermissions(parameter) {
   return axios({
     url: api.permissionNoPager,
     method: 'get',
@@ -43,7 +35,7 @@ export function getPermissions (parameter) {
   })
 }
 
-export function getOrgTree (parameter) {
+export function getOrgTree(parameter) {
   return axios({
     url: api.orgTree,
     method: 'get',
@@ -53,7 +45,7 @@ export function getOrgTree (parameter) {
 
 // id == 0 add     post
 // id != 0 update  put
-export function saveService (parameter) {
+export function saveService(parameter) {
   return axios({
     url: api.service,
     method: parameter.id === 0 ? 'post' : 'put',

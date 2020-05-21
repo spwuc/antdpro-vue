@@ -15,13 +15,14 @@ const defaultRoutePath = '/dashboard/workplace'
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
-  to.meta && (typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title} - ${domTitle}`))
+  to.meta && typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title} - ${domTitle}`)
   if (Vue.ls.get(ACCESS_TOKEN)) {
     /* has token */
     if (to.path === '/user/login') {
       next({ path: defaultRoutePath })
       NProgress.done()
     } else {
+      // TODO
       if (store.getters.roles.length === 0) {
         store
           .dispatch('GetInfo')
@@ -43,10 +44,10 @@ router.beforeEach((to, from, next) => {
             })
           })
           .catch(() => {
-            notification.error({
-              message: '错误',
-              description: '请求用户信息失败，请重试'
-            })
+            // notification.error({
+            //   message: '错误',
+            //   description: '请求用户信息失败，请重试'
+            // })
             store.dispatch('Logout').then(() => {
               next({ path: '/user/login', query: { redirect: to.fullPath } })
             })

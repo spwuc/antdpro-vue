@@ -2,9 +2,9 @@ import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
 import notification from 'ant-design-vue/es/notification'
+import Message from 'ant-design-vue/es/message'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
-
 // 创建 axios 实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
@@ -14,8 +14,8 @@ const service = axios.create({
   }
 })
 
-let loadingInstance
 const err = error => {
+  console.log(error.response)
   if (error.response) {
     const { status } = error.response
     const data = error.response.data
@@ -28,10 +28,7 @@ const err = error => {
     } else if (status == '500') {
       window.router.push('/500')
     } else if (status === 401) {
-      notification.error({
-        message: '未经授权',
-        description: '权限校验失败'
-      })
+      debugger
       if (token) {
         store.dispatch('Logout').then(() => {
           setTimeout(() => {
@@ -39,8 +36,14 @@ const err = error => {
           }, 1500)
         })
       }
+      notification.destroy()
+      return notification.error({
+        message: '未经授权',
+        description: '权限校验失败'
+      })
     } else {
-      notification.error({
+      notification.destroy()
+      return notification.error({
         message: 'Forbidden',
         description: data.message
       })
@@ -48,39 +51,38 @@ const err = error => {
   }
   return Promise.reject(error)
 }
-
 // request interceptor
 service.interceptors.request.use(config => {
   const token = Vue.ls.get(ACCESS_TOKEN)
   if (token) {
-    config.headers['Authorization'] = token
-    // config.headers['Access-Token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
+    config.headers['Authorization'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
   }
 
   if (config.url.split('/')[config.url.split('/').length - 1].indexOf('Export') == 0) {
     config.responseType = 'arraybuffer'
   }
+  store.state.loadding = true
+  console.log(config)
 
-  loadingInstance = Loading.service({ fullscreen: true })
   return config
 }, err)
 
 // response interceptor
 service.interceptors.response.use(response => {
-  loadingInstance.close()
-  if (
-    response.headers['content-type'] == 'application/json;charset=utf-8' ||
-    response.headers['content-type'] == 'application/json; charset=utf-8'
-  ) {
+  store.state.loadding = false
+  if (response.headers['content-type'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    let name = response.headers['content-disposition'].split("filename*=UTF-8''")[1]
+    return {
+      name: name,
+      blob: response.data
+    }
+  } else {
+    console.log(response)
     const res = response.data
     // 返回状态码进行管理数据
     if (res.errorCode != '000000') {
-      Message.closeAll()
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+      Message.destroy()
+      Message.error(res.message || 'Error', 5 * 1000)
 
       if (res.errorCode == '000001') {
         store.dispatch('Logout').then(() => {
@@ -88,17 +90,9 @@ service.interceptors.response.use(response => {
         })
       }
       return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      return res
     }
-  } else if (response.headers['content-type'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-    let name = response.headers['content-disposition'].split("filename*=UTF-8''")[1]
-    return {
-      name: name,
-      blob: response.data
-    }
+    return res
   }
-  return response.data
 }, err)
 
 const installer = {

@@ -1,55 +1,25 @@
 import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
+import * as loginService from '@/api/login'
+import { generatorDynamicRouter } from '@/router/generator-routers'
 
-/**
- * 过滤账户是否拥有某一个权限，并将菜单从加载列表移除
- *
- * @param permission
- * @param route
- * @returns {boolean}
- */
-function hasPermission (permission, route) {
-  if (route.meta && route.meta.permission) {
-    let flag = false
-    for (let i = 0, len = permission.length; i < len; i++) {
-      flag = route.meta.permission.includes(permission[i])
-      if (flag) {
-        return true
-      }
-    }
-    return false
-  }
-  return true
-}
-
-/**
- * 单账户多角色时，使用该方法可过滤角色不存在的菜单
- *
- * @param roles
- * @param route
- * @returns {*}
- */
-// eslint-disable-next-line
-function hasRole(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return route.meta.roles.includes(roles.id)
-  } else {
-    return true
-  }
-}
-
-function filterAsyncRouter (routerMap, roles) {
-  const accessedRouters = routerMap.filter(route => {
-    if (hasPermission(roles.permissionList, route)) {
-      if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
-      }
-      return true
-    }
-    return false
-  })
-  return accessedRouters
-}
-
+// const generatorDynamicRouter = () => {
+//   return new Promise((resolve, reject) => {
+//     loginService
+//       .getCurrentUserNav()
+//       .then(res => {
+//         const { result } = res
+//         result.push({
+//           path: '*',
+//           redirect: '/404',
+//           hidden: true
+//         })
+//         resolve(result)
+//       })
+//       .catch(err => {
+//         reject(err)
+//       })
+//   })
+// }
 const permission = {
   state: {
     routers: constantRouterMap,
@@ -62,12 +32,32 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes ({ commit }, data) {
+    GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const { roles } = data
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
+        generatorDynamicRouter().then(routers => {
+          console.log(routers)
+          commit('SET_ROUTERS', routers)
+          // commit('SET_ROUTERS', asyncRouterMap)
+          resolve()
+        })
+        // generatorDynamicRouter().then(routers => {
+        //   // TODO
+        //   console.log('---------generatorDynamicRouter----------')
+        //   console.log(
+        //     constantRouterMap.concat(
+        //       routers.concat([
+        //         {
+        //           path: '*',
+        //           redirect: '/404',
+        //           hidden: true
+        //         }
+        //       ])
+        //     )
+        //   )
+        //   console.log(asyncRouterMap)
+        //   commit('SET_ROUTERS', asyncRouterMap)
+        //   resolve()
+        // })
       })
     }
   }

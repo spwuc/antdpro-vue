@@ -1,4 +1,3 @@
-
 /* eslint-disable */
 /**
  * 该文件是为了按需加载，剔除掉了一些不需要的框架组件。
@@ -97,3 +96,27 @@ Vue.prototype.$info = Modal.info
 Vue.prototype.$success = Modal.success
 Vue.prototype.$error = Modal.error
 Vue.prototype.$warning = Modal.warning
+
+Vue.prototype.$filterMoment = (obj, formatType = 'YYYY-MM-DD') => {
+  if (obj) {
+    if (typeof obj == 'object') {
+      let data = JSON.parse(JSON.stringify(obj))
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          try {
+            if (data[key].isValid()) {
+              data[key] = data[key].format(formatType)
+            }
+          } catch (e) {
+            console.warn(e)
+          }
+        }
+      }
+      return data
+    } else {
+      return {}
+    }
+  } else {
+    return {}
+  }
+}
