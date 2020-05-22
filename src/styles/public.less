@@ -14,11 +14,29 @@
 @text-color: rgba(0, 0, 0, 0.65); // 主文本色
 @text-color-secondary: rgba(0, 0, 0, 0.45); // 次文本色
 @disabled-color: rgba(0, 0, 0, 0.25); // 失效色
-@border-radius-base: 4px; // 组件/浮层圆角
+@border-radius-base: 2px; // 组件/浮层圆角
 @border-color-base: #d9d9d9; // 边框色
 @box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15); // 浮层阴影
 
+.tangram-suggestion-main {
+  z-index: 9999;
+}
+.BMap_scaleCtrl.BMap_noprint.anchorBL {
+  left: 10px !important;
+}
+.BMap_cpyCtrl.BMap_noprint.anchorBL {
+  display: none;
+}
+.pano_pc_indoor_exit + .anchorBL {
+  display: none;
+}
 #app {
+  .ant-select-lg,
+  .ant-input-number-lg,
+  .ant-input-lg {
+    font-size: 14px;
+    line-height: 38px;
+  }
   outline: none;
   // .ant-layout-footer {
   //   display: none !important;

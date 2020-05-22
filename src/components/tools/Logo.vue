@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '清洁供暖',
+      default: '阳泉工业企业',
       required: false
     },
     showTitle: {

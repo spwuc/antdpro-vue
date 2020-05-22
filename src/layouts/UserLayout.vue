@@ -5,22 +5,22 @@
         <div class="header">
           <a href="/">
             <img src="~@/assets/logo.svg" class="logo" alt="logo" />
-            <span class="title">Ant Design</span>
+            <span class="title">阳泉工业企业</span>
           </a>
         </div>
-        <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+        <!-- <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div> -->
       </div>
 
       <route-view></route-view>
 
-      <!-- <div class="footer">
-        <div class="links">
+      <div class="footer">
+        <!-- <div class="links">
           <a href="_self">帮助</a>
           <a href="_self">隐私</a>
           <a href="_self">条款</a>
-        </div>
-        <div class="copyright">Copyright &copy; 2018 白鹭学园技术组出品</div>
-      </div>-->
+        </div>-->
+        <div class="copyright">Copyright &copy; 2020 山西祥睿能源有限公司出品</div>
+      </div>
     </div>
   </div>
 </template>
@@ -62,8 +62,8 @@ export default {
   .container {
     width: 100%;
     min-height: 100%;
-    background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
-    background-size: 100%;
+    background: #f0f2f5 url(http://39.98.136.99:5004/static/img/background.d3fd085a.jpg) no-repeat 50%;
+    background-size: 100% 100%;
     padding: 110px 0 144px;
     position: relative;
 
@@ -77,7 +77,7 @@ export default {
       .header {
         height: 44px;
         line-height: 44px;
-
+        margin-bottom: 40px;
         .badge {
           position: absolute;
           display: inline-block;
@@ -97,7 +97,7 @@ export default {
 
         .title {
           font-size: 33px;
-          color: rgba(0, 0, 0, 0.85);
+          color: rgba(255, 255, 255, 0.85);
           font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
           font-weight: 600;
           position: relative;
@@ -138,7 +138,7 @@ export default {
         }
       }
       .copyright {
-        color: rgba(0, 0, 0, 0.45);
+        color: rgba(255, 255, 255, 0.45);
         font-size: 14px;
       }
     }

@@ -16,4 +16,4 @@ export const setDocumentTitle = function(title) {
   }
 }
 
-export const domTitle = '清洁供暖'
+export const domTitle = '阳泉工业企业'
