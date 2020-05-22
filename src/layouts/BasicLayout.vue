@@ -116,41 +116,7 @@ export default {
   },
   created() {
     window.router = this.$router
-    let routers1 = [
-      {
-        path: '/',
-        name: 'index',
-        meta: { title: '首页' },
-        redirect: '/dashboard/workplace',
-        children: [
-          {
-            path: 'dashboard',
-            name: 'dashboard',
-            meta: { title: '仪表盘', icon: bxAnaalyse },
-            children: [
-              {
-                path: 'workplace',
-                name: 'Workplace',
-                meta: { title: '工作台' }
-              },
-              {
-                path: 'analysis/:pageNo([1-9]\\d*)?',
-                name: 'Analysis',
-                meta: { title: '分析页' }
-              },
-              {
-                path: 'test-work',
-                name: 'TestWork',
-                meta: { title: '测试功能' }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-
     const routes = convertRoutes(this.mainMenu.find(item => item.path === '/'))
-    // const routes = convertRoutes(routers1.find(item => item.path === '/'))
     this.menus = (routes && routes.children) || []
     this.collapsed = !this.sidebarOpened
   },
