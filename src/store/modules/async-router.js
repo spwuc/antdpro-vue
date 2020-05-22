@@ -1,7 +1,7 @@
 /**
  * 向后端请求用户的菜单，动态生成路由
  */
-import { constantRouterMap } from '@/config/router.config'
+import { constantRouterMap, asyncRouterMap } from '@/config/router.config'
 import { generatorDynamicRouter } from '@/router/generator-routers'
 
 const permission = {
@@ -16,11 +16,13 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes ({ commit }, data) {
+    GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
         const { token } = data
         generatorDynamicRouter(token).then(routers => {
-          commit('SET_ROUTERS', routers)
+          // TODO
+          // commit('SET_ROUTERS', routers)
+          commit('SET_ROUTERS', asyncRouterMap)
           resolve()
         })
       })

@@ -466,172 +466,6 @@ const info = options => {
 
 const userNav = options => {
   const nav = [
-    // dashboard
-    {
-      path: 'dashboard',
-      name: 'dashboard',
-      redirect: '/dashboard/workplace',
-      component: 'RouteView',
-      meta: { title: '仪表盘', icon: 'dashboard' },
-      children: [
-        {
-          path: 'analysis/:pageNo([1-9]\\d*)?',
-          name: 'Analysis',
-          component: 'Analysis',
-          meta: { title: '分析页' }
-        },
-        // 外部链接
-        // {
-        //   path: 'https://www.baidu.com/',
-        //   name: 'Monitor',
-        //   meta: { title: '监控页（外部）', target: '_blank' }
-        // },
-        {
-          path: 'workplace',
-          name: 'Workplace',
-          component: 'Workplace',
-          meta: { title: '工作台' }
-        },
-        {
-          path: 'test-work',
-          name: 'TestWork',
-          component: 'TestWork',
-          meta: { title: '测试功能' }
-        }
-      ]
-    },
-
-    // forms
-    {
-      path: '/form',
-      redirect: '/form/base-form',
-      component: 'PageView',
-      meta: { title: '表单页', icon: 'form' },
-      children: [
-        {
-          path: '/form/base-form',
-          name: 'BaseForm',
-          component: 'BasicForm',
-          meta: { title: '基础表单' }
-        },
-        {
-          path: '/form/step-form',
-          name: 'StepForm',
-          component: 'StepForm',
-          meta: { title: '分步表单' }
-        },
-        {
-          path: '/form/advanced-form',
-          name: 'AdvanceForm',
-          component: 'AdvanceForm',
-          meta: { title: '高级表单' }
-        }
-      ]
-    },
-
-    // list
-    {
-      path: '/list',
-      name: 'list',
-      component: 'PageView',
-      redirect: '/list/table-list',
-      meta: { title: '列表页', icon: 'table' },
-      children: [
-        {
-          path: '/list/table-list/:pageNo([1-9]\\d*)?',
-          name: 'TableListWrapper',
-          hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-          component: 'TableList',
-          meta: { title: '查询表格' }
-        },
-        {
-          path: '/list/basic-list',
-          name: 'BasicList',
-          component: 'StandardList',
-          meta: { title: '标准列表' }
-        },
-        {
-          path: '/list/card',
-          name: 'CardList',
-          component: 'CardList',
-          meta: { title: '卡片列表' }
-        },
-        {
-          path: '/list/search',
-          name: 'SearchList',
-          component: 'SearchLayout',
-          redirect: '/list/search/article',
-          meta: { title: '搜索列表' },
-          children: [
-            {
-              path: '/list/search/article',
-              name: 'SearchArticles',
-              component: 'SearchArticles',
-              meta: { title: '搜索列表（文章）' }
-            },
-            {
-              path: '/list/search/project',
-              name: 'SearchProjects',
-              component: 'SearchProjects',
-              meta: { title: '搜索列表（项目）' }
-            },
-            {
-              path: '/list/search/application',
-              name: 'SearchApplications',
-              component: 'SearchApplications',
-              meta: { title: '搜索列表（应用）' }
-            }
-          ]
-        }
-      ]
-    },
-
-    // profile
-    {
-      path: '/profile',
-      name: 'profile',
-      component: 'RouteView',
-      redirect: '/profile/basic',
-      meta: { title: '详情页', icon: 'profile' },
-      children: [
-        {
-          path: '/profile/basic',
-          name: 'ProfileBasic',
-          component: 'ProfileBasic',
-          meta: { title: '基础详情页' }
-        },
-        {
-          path: '/profile/advanced',
-          name: 'ProfileAdvanced',
-          component: 'ProfileAdvanced',
-          meta: { title: '高级详情页' }
-        }
-      ]
-    },
-
-    // result
-    {
-      path: '/result',
-      name: 'result',
-      component: 'PageView',
-      redirect: '/result/success',
-      meta: { title: '结果页', icon: 'check-circle-o' },
-      children: [
-        {
-          path: '/result/success',
-          name: 'ResultSuccess',
-          component: 'ResultSuccess',
-          meta: { title: '成功', hiddenHeaderContent: true }
-        },
-        {
-          path: '/result/fail',
-          name: 'ResultFail',
-          component: 'ResultFail',
-          meta: { title: '失败', hiddenHeaderContent: true }
-        }
-      ]
-    },
-
     // Exception
     {
       path: '/exception',
@@ -643,141 +477,30 @@ const userNav = options => {
         {
           path: '/exception/403',
           name: 'Exception403',
-          component: 'Exception403',
+          component: 'exception/403',
           meta: { title: '403' }
         },
         {
           path: '/exception/404',
           name: 'Exception404',
-          component: 'Exception404',
+          component: 'exception/404',
           meta: { title: '404' }
         },
         {
           path: '/exception/500',
           name: 'Exception500',
-          component: 'Exception500',
+          component: 'exception/500',
           meta: { title: '500' }
+        },
+        {
+          path: '/exception/501',
+          name: 'Exception501',
+          component: 'exception/501',
+          meta: { title: '501' }
         }
       ]
     },
 
-    // account
-    {
-      path: '/account',
-      component: 'RouteView',
-      redirect: '/account/center',
-      name: 'account',
-      meta: { title: '个人页', icon: 'user' },
-      children: [
-        {
-          path: '/account/center',
-          name: 'center',
-          component: 'AccountCenter',
-          meta: { title: '个人中心' }
-        },
-        {
-          path: '/account/settings',
-          name: 'settings',
-          component: 'AccountSettings',
-          meta: { title: '个人设置', hideHeader: true },
-          redirect: '/account/settings/base',
-          hideChildrenInMenu: true,
-          children: [
-            {
-              path: '/account/settings/base',
-              name: 'BaseSettings',
-              component: 'BaseSettings',
-              meta: { title: '基本设置', hidden: true }
-            },
-            {
-              path: '/account/settings/security',
-              name: 'SecuritySettings',
-              component: 'SecuritySettings',
-              meta: { title: '安全设置', hidden: true }
-            },
-            {
-              path: '/account/settings/custom',
-              name: 'CustomSettings',
-              component: 'CustomSettings',
-              meta: { title: '个性化设置', hidden: true }
-            },
-            {
-              path: '/account/settings/binding',
-              name: 'BindingSettings',
-              component: 'BindingSettings',
-              meta: { title: '账户绑定', hidden: true }
-            },
-            {
-              path: '/account/settings/notification',
-              name: 'NotificationSettings',
-              component: 'NotificationSettings',
-              meta: { title: '新消息通知', hidden: true }
-            }
-          ]
-        }
-      ]
-    },
-
-    // other
-    {
-      path: '/other',
-      name: 'otherPage',
-      component: 'PageView',
-      meta: { title: '其他组件', icon: 'slack' },
-      redirect: '/other/icon-selector',
-      children: [
-        {
-          path: '/other/icon-selector',
-          name: 'TestIconSelect',
-          component: 'other/IconSelectorView',
-          meta: { title: 'IconSelector', icon: 'tool' }
-        },
-        {
-          path: '/other/list',
-          component: 'RouteView',
-          meta: { title: '业务布局', icon: 'layout' },
-          redirect: '/other/list/tree-list',
-          children: [
-            {
-              path: '/other/list/tree-list',
-              name: 'TreeList',
-              component: 'other/TreeList',
-              meta: { title: '树目录表格' }
-            },
-            {
-              path: '/other/list/edit-table',
-              name: 'EditList',
-              component: 'other/TableInnerEditList',
-              meta: { title: '内联编辑表格' }
-            },
-            {
-              path: '/other/list/user-list',
-              name: 'UserList',
-              component: 'other/UserList',
-              meta: { title: '用户列表' }
-            },
-            {
-              path: '/other/list/role-list',
-              name: 'RoleList',
-              component: 'other/RoleList',
-              meta: { title: '角色列表' }
-            },
-            {
-              path: '/other/list/system-role',
-              name: 'SystemRole',
-              component: 'role/RoleList',
-              meta: { title: '角色列表2' }
-            },
-            {
-              path: '/other/list/permission-list',
-              name: 'PermissionList',
-              component: 'other/PermissionList',
-              meta: { title: '权限列表' }
-            }
-          ]
-        }
-      ]
-    },
     //参考demo
     {
       path: '/demo',
