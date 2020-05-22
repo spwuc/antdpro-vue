@@ -16,4 +16,4 @@ export const setDocumentTitle = function(title) {
   }
 }
 
-export const domTitle = '阳泉工业企业'
+export const domTitle = process.env.VUE_APP_API_BASE_NAME

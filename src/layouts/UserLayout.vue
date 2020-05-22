@@ -5,7 +5,7 @@
         <div class="header">
           <a href="/">
             <img src="~@/assets/logo.svg" class="logo" alt="logo" />
-            <span class="title">阳泉工业企业</span>
+            <span class="title">{{name}}</span>
           </a>
         </div>
         <!-- <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div> -->
@@ -34,7 +34,9 @@ export default {
   components: { RouteView },
   mixins: [mixinDevice],
   data() {
-    return {}
+    return {
+      name: process.env.VUE_APP_API_BASE_NAME
+    }
   },
   mounted() {
     window.router = this.$router

@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '阳泉工业企业',
+      default: process.env.VUE_APP_API_BASE_NAME.substring(0, 6),
       required: false
     },
     showTitle: {
